@@ -4,7 +4,7 @@ import pickle, os
 import numpy as np
 
 app = Flask(__name__)
-CORS(app)  # ✅ Allow requests from any origin
+CORS(app)
 
 # Load models
 model_dir = 'models'
@@ -31,11 +31,13 @@ def predict():
     model = models[category]
     future_months = np.arange(0, 6).reshape(-1, 1)
     predictions = model.predict(future_months)
+    months = [f"Month {i+1}" for i in range(6)]
 
     return jsonify({
         "category": category,
+        "months": months,
         "predictions": predictions.round(2).tolist()
-    })
+    }), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
