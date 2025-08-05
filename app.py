@@ -5,8 +5,10 @@ import pandas as pd
 import pytesseract
 from PIL import Image
 import joblib
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.config['SECRET_KEY'] = 'yoursecret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
